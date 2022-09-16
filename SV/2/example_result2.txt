@@ -1,0 +1,14 @@
+GTCGTGGGTAATGCGACCCAGGCGTACAGCCCGGCTCCTCAAGTACCCCCATAGGGCGTACCGCCAAGCCCCATGCCTGA
+GTCGTGGGTA>1                  CCGGCTCCTC>2
+   GTGGGTAATG>1                  GCTCCTCAAG>2
+       GTAATGCGAC>1                  CTCAAGTACC>2
+            GCGACCCAGG>1                  GTACCCCCAT>2
+                 CCAGGCGTAC>1                  CCCATAGGGC>2
+                      CGTACAGCCC>1                  AGGGCGTACC>2
+                       GTACAGCCCG>1                  GGGCGTACCG>2
+                           AGCCCGGCTC>1                  GTACCGCGAC>2
+                            GCCCGGCTCC>1                  TACCGCCAAG>2
+                              CCGGCTCCTC>1                  CCGCACCCA>2
+                                  CTCCTCAAGT>1                  CAAGCCCCAT>2
+                                       CAAGTACCCC>1                  CCCATGCCTG>2
+

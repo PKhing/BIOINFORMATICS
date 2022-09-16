@@ -1,0 +1,47 @@
+TGCGGTCCCAGTCGCTGCAAT|AGGCGAGACGAACGAGGAGAGGCCGACCATAGCACGCTAT|TAGAGGCGCACGCCGGAAGGAGGAGCAACGAGTGGATTT
+ GCGGTCCCAGTC<1                                                GAGGCGCACGCC<2                         
+    GTCCCAGTCGCT<1                                                GCGCACGCCGGA<2                      
+       CCAGTCGCTGCA<1                                                CACGCCGGAAGG<2                   
+            CGCTGCAATTAG<1                                                CGGAAGGAGGAG<2              
+               TGCAATTAGAGG<1                                                AAGGAGGAGCAA<2           
+TGCGGTCCCAGT<1        GGCGAGACGAAC<2                                                                  
+  CGGTCCCAGTCG<1        CGAGACGAACGA<2                                                                
+    GTCCCAGTCGCT<1        AGACGAACGAGG<2                                                              
+      CCCAGTCGCTGC<1        ACGAACGAGGAG<2                                                            
+         AGTCGCTGCAAT<1        AACGAGGAGAGG<2                                                         
+              CTGCAATAGGCG<1        GGAGAGGCCGAC<2                                                    
+                 CAATAGGCGAGA<1        GAGGCCGACCAT<2                                                 
+                   ATAGGCGAGACG<1        GGCCGACCATAG<2                                               
+                     AGGCGAGACGAA<1        CCGACCATAGCA<2                                             
+                        CGAGACGAACGA<1        ACCATAGCACGC<2                                          
+                          AGACGAACGAGG<1        CATAGCACGCTA<2                                        
+                            ACGAACGAGGAG<1        TAGCACGCTATT<2                                      
+                               AACGAGGAGAGG<1        CACGCTATTAGA<2                                   
+                                   AGGAGAGGCCGA<1        CTATTAGAGGCG<2                               
+                                     GAGAGGCCGACC<1        ATTAGAGGCGCA<2                             
+                                         GGCCGACCATAG<1        GAGGCGCACGCC<2                         
+                                            CGACCATAGCAC<1        GCGCACGCCGGA<2                      
+                                             GACCATAGCACG<1        CGCACGCCGGAA<2                     
+                                                  TAGCACGCTATT<1        GCCGGAAGGAGG<2                
+                                                    GCACGCTATTAG<1        CGGAAGGAGGAG<2              
+                                                       CGCTATTAGAGG<1        AAGGAGGAGCAA<2           
+                                                         CTATTAGAGGCG<1        GGAGGAGCAACG<2         
+                                                           ATTAGAGGCGCA<1        AGGAGCAACGAG<2       
+                                                            TTAGAGGCGCAC<1        GGAGCAACGAGT<2      
+                                                              AGAGGCGCACGC<1        AGCAACGAGTGG<2    
+                                                                AGGCGCACGCCG<1        CAACGAGTGGAT<2  
+                                                                 GGCGCACGCCGG<1        AACGAGTGGATT<2 
+GCCTGGGACGAGATCCCGATC<1        TGGACACCGCGGCGGTATCGA<2                                                                                                            
+ CCTGGGACGAGATCCCGATCA<1        GGACACCGCGGCGGTATCGAT<2                                                                                                           
+  CTGGGACGAGATCCCGATCAC<1        GACACCGCGGCGGTATCGATG<2                                                                                                          
+    GGGACGAGATCCCGATCACCT<1        CACCGCGGCGGTATCGATGGG<2                                                                                                        
+     GGACGAGATCCCGATCACCTA<1        ACCGCGGCGGTATCGATGGGC<2                                                                                                       
+      GACGAGATCCCGATCACCTAT<1        CCGCGGCGGTATCGATGGGCT<2                                                                                                      
+          AGATCCCGATCACCTATCCGA<1        GGCGGTATCGATGGGCTGGGG<2                                                                                                  
+           GATCCCGATCACCTATCCGAT<1        GCGGTATCGATGGGCTGGGGT<2                                                                                                 
+             TCCCGATCACCTATCCGATGG<1        GGTATCGATGGGCTGGGGTCC<2                                                                                               
+               CCGATCACCTATCCGATGGAC<1        TATCGATGGGCTGGGGTCCGC<2                                                                                             
+                CGATCACCTATCCGATGGACA<1        ATCGATGGGCTGGGGTCCGCT<2                                                                                            
+                 GATCACCTATCCGATGGACAC<1        TCGATGGGCTGGGGTCCGCTC<2                                                                                           
+                  ATCACCTATCCGATGGACACC<1        CGATGGGCTGGGGTCCGCTCG<2                                                                                          
+                   TCACCTATCCGATGGACACCG<1        GATGGGCTGGGGTCCGCTCGA<2                                                                                         
