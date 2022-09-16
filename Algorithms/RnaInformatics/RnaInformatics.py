@@ -60,8 +60,12 @@ def nussinnov(sequence):
   return (dp[0][n - 1], ''.join(result))
 
 
-print(nussinnov("GUCAGCAGUGCCUUAGCAGCACGUAAAUAUUGGCGUUAAGAUUCUAAAAUUAUCUCCAGUAUUAACUGUGCUGCUGAAGUAAGGUUGAC"))
-print(nussinnov("AUGACUGAUUUCUUUUGGUGUUCAGAGUCAAUAUAAUUUUCUAGCACCAUCUGAAAUCGGUUAU"))
-print(nussinnov("CCTAGTGGTGATAGCGGAGGGGAAACACCCGTTCCCATCCCGAACACGGAAGTTAAGCCCTCCAGCGCCGATGGTAGTTGGGGCCAGCGCCCCTGCAAGAGTAGGTCGCTGCTAGGC"))
-print(nussinnov(
-    "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCA"))
+f = open("Algorithms/RnaInformatics/input.in", "r")
+sequences = f.read().split('\n')
+
+f = open("Algorithms/RnaInformatics/output.out", "w+")
+for sequence in sequences:
+  (pairs, result) = nussinnov(sequence)
+  f.write("{} pairs\n".format(pairs))
+  f.write(sequence + '\n')
+  f.write(result + '\n\n')
