@@ -1,69 +1,86 @@
 import random
 
+f = open("Algorithms/MotifFinding/sequences.fastq", "r")
+dnas = [s for s in f.read().split('\n') if len(s) > 0 and s[0] != '>']
+
+DNA_COUNT = len(dnas)
 MOTIF_LENGTH = 10
 
-def getProfile(motifs):
-  n = (4 + len(motifs))
-  A = [1 / n] * MOTIF_LENGTH
-  T = [1 / n] * MOTIF_LENGTH
-  C = [1 / n] * MOTIF_LENGTH
-  G = [1 / n] * MOTIF_LENGTH
-  for motif in motifs:
+class Profile:
+  bases = 'atcg'
+  profile = {}
+  n = (4 + DNA_COUNT)
+
+  def __init__(self, motifs):
+    for base in self.bases:
+      self.profile[base] = [1 / self.n] * MOTIF_LENGTH
+    for motif in motifs:
+      for i in range(MOTIF_LENGTH):
+        self.profile[motif[i]][i] += 1 / self.n
+
+  def getProb(self, motif):
+    prob = 1
     for i in range(MOTIF_LENGTH):
-      if motif[i] == 'a':
-        A[i] += 1 / n
-      elif motif[i] == 't':
-        T[i] += 1 / n
-      elif motif[i] == 'c':
-        C[i] += 1 / n
-      else:
-        G[i] += 1 / n
-  return (A, T, C, G)
+      prob *= self.profile[motif[i]][i]
+    return prob
 
-def findProb(profile, motif):
-  (A, T, C, G) = profile
-  prob = 1
-  for i in range(MOTIF_LENGTH):
-    if motif[i] == 'a':
-      prob *= A[i]
-    elif motif[i] == 't':
-      prob *= T[i]
-    elif motif[i] == 'c':
-      prob *= C[i]
-    else:
-      prob *= G[i]
-  return prob
+  def getConsensus(self):
+    consensus = ""
+    for i in range(MOTIF_LENGTH):
+      col = [self.profile[base][i] for base in self.bases]
+      maxBaseIdx = col.index(max(col))
+      consensus += self.bases[maxBaseIdx]
+    return consensus
 
-def getMotifs(profile, dnas):
-  motifs = []
-  for dna in dnas:
-    motif = getMotif(profile, dna)
-    motifs.append(motif)
-  return motifs
+  def __getBestMotif(self, dna):
+    maxProb = -1
+    bestMotif = ""
+    for i in range(len(dna) - MOTIF_LENGTH + 1):
+      prob = self.getProb(dna[i:i + MOTIF_LENGTH])
+      if prob > maxProb:
+        bestMotif = dna[i:i + MOTIF_LENGTH]
+        maxProb = prob
+    return bestMotif
 
-def getMotif(profile, dna):
-  maxProb = -1
-  bestMotif = ""
-  for i in range(len(dna) - MOTIF_LENGTH + 1):
-    prob = findProb(profile, dna[i:i + MOTIF_LENGTH])
-    if prob > maxProb:
-      bestMotif = dna[i:i + MOTIF_LENGTH]
-      maxProb = prob
-  return bestMotif
+  def getBestMotifs(self, dnas):
+    return [self.__getBestMotif(dna) for dna in dnas]
 
-def getConsensus(profile):
-  (A, T, C, G) = profile
-  result = ""
-  for i in range(MOTIF_LENGTH):
-    if A[i] == max(A[i], T[i], C[i], G[i]):
-      result += 'a'
-    elif T[i] == max(A[i], T[i], C[i], G[i]):
-      result += 't'
-    elif C[i] == max(A[i], T[i], C[i], G[i]):
-      result += 'c'
-    else:
-      result += 'g'
-  return result
+class Formatter:
+
+  def __init__(self, consensus, fileName):
+    self.consensus = consensus
+    self.f = open(fileName, "w+")
+
+  def __countMismatch(self, s):
+    return sum([1 if s[i] != self.consensus[i] else 0 for i in range(MOTIF_LENGTH)])
+
+  def __findLocation(self, s):
+    minMismatch = 1e9
+    location = -1
+    for i in range(len(s) - MOTIF_LENGTH + 1):
+      mismatch = self.__countMismatch(s[i:i + MOTIF_LENGTH])
+      if mismatch < minMismatch:
+        minMismatch = mismatch
+        location = i
+    return (location, minMismatch)
+
+  def printSequence(self, dnas):
+    sum = 0
+    for dna in dnas:
+      (location, mismatch) = self.__findLocation(dna)
+      sum += mismatch
+      self.f.write(dna[:location] +
+                   dna[location:location + MOTIF_LENGTH].upper() +
+                   dna[location + MOTIF_LENGTH:] + '\n')
+    print("Consensus: " + self.consensus)
+    print("Mismatch: " + str(sum))
+
+def getScore(motifs, consensus):
+  score = 0
+  for motif in motifs:
+    score += sum([1 if motif[i] != consensus[i]
+                 else 0 for i in range(MOTIF_LENGTH)])
+  return score
 
 def getRandomMotifs(dnas):
   motifs = []
@@ -72,45 +89,36 @@ def getRandomMotifs(dnas):
     motifs.append(dna[st:st + MOTIF_LENGTH])
   return motifs
 
-def getScore(motifs, profile):
-  score = 0
-  consensus = getConsensus(profile)
-  for motif in motifs:
-    for i in range(MOTIF_LENGTH):
-      if (motif[i] != consensus[i]):
-        score += 1
-  return score
-
-
-def getBestMotifs(dnas):
+def getBestConsensus(dnas):
   motifs = getRandomMotifs(dnas)
-  profile = getProfile(motifs)
-  bestMotifs = motifs
-  minScore = getScore(motifs, profile)
+
+  bestConsensus = ""
+  minScore = 1e9
 
   while (True):
-    profile = getProfile(motifs)
-    motifs = getMotifs(profile, dnas)
-    newScore = getScore(motifs, profile)
-    if newScore < minScore:
-      bestMotifs = motifs
-      minScore = newScore
+    profile = Profile(motifs)
+    motifs = profile.getBestMotifs(dnas)
+    consensus = profile.getConsensus()
+    score = getScore(motifs, consensus)
+    if score < minScore:
+      minScore = score
+      bestConsensus = consensus
     else:
-      break
-  return (minScore, bestMotifs)
+      return (minScore, bestConsensus)
+
+def getBestConsensusKTimes(dnas, k):
+  bestConsensus = ''
+  minScore = 1e9
+
+  for i in range(k):
+    (score, consensus) = getBestConsensus(dnas)
+    if (score < minScore):
+      minScore = score
+      bestConsensus = consensus
+  return bestConsensus
 
 
-f = open("Algorithms/MotifFinding/sequences.fastq", "r")
-dnas = [s for s in f.read().split('\n') if len(s) > 0 and s[0] != '>']
-minScore = 1e9
-bestMotifs = ''
+consensus = getBestConsensusKTimes(dnas, 100)
 
-for i in range(100):
-  (score, motifs) = getBestMotifs(dnas)
-  if (score < minScore):
-    minScore = score
-    bestMotifs = motifs
-
-profile = getProfile(bestMotifs)
-
-print(getConsensus(profile))
+formatter = Formatter(consensus, "Algorithms/MotifFinding/output.out")
+formatter.printSequence(dnas)
